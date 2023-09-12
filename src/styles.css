@@ -1,0 +1,122 @@
+.header {
+  display: grid;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.body {
+  position: relative;
+}
+
+.timerContainer {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  gap: 100px;
+  grid-auto-flow: column;
+}
+
+.gameOverText {
+  font-size: 4.5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 20;
+  transform: translate(-50%, -50%);
+}
+
+.board {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(var(--size), auto);
+}
+
+.tile {
+  width: 40px;
+  height: 40px;
+  border: 2px;
+  border-style: solid;
+  position: relative;
+}
+
+.hidden {
+  border-color: grey;
+  background-image: url("assets/hidden.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.tile.open {
+  border-color: grey;
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.tile.open.nro_1 {
+  background-image: url("assets/nro_1.png");
+}
+.tile.open.nro_2 {
+  background-image: url("assets/nro_2.png");
+}
+.tile.open.nro_3 {
+  background-image: url("assets/nro_3.png");
+}
+.tile.open.nro_4 {
+  background-image: url("assets/nro_4.png");
+}
+.tile.open.nro_5 {
+  background-image: url("assets/nro_5.png");
+}
+.tile.open.nro_6 {
+  background-image: url("assets/nro_6.png");
+}
+.tile.open.nro_7 {
+  background-image: url("assets/nro_7.png");
+}
+.tile.open.nro_8 {
+  background-image: url("assets/nro_8.png");
+}
+
+.tile.mine {
+  border-color: grey;
+  background-image: url("assets/mine.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+.tile.mine_exploded {
+  border-color: grey;
+  background-image: url("assets/mine_exploded.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.tile.flag {
+  border-color: grey;
+  background-image: url("assets/flag.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+.tile.flag_incorrect {
+  border-color: grey;
+  background-image: url("assets/flag_incorrect.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.tile:hover:not(.disabled) {
+  border-color: black;
+}
+
+.tileNumber {
+  font-size: larger;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
