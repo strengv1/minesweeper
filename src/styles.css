@@ -1,10 +1,11 @@
+.body {
+  position: relative;
+}
+
 .header {
   display: grid;
   justify-content: center;
   margin-bottom: 50px;
-}
-.body {
-  position: relative;
 }
 
 .timerContainer {
@@ -32,26 +33,23 @@
 }
 
 .tile {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border: 2px;
   border-style: solid;
   position: relative;
-}
-
-.hidden {
-  border-color: grey;
-  background-image: url("assets/hidden.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
 
+.hidden {
+  border-color: grey;
+  background-image: url("assets/hidden.png");
+}
+
 .tile.open {
   border-color: grey;
-  background-position: center; 
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .tile.open.nro_1 {
   background-image: url("assets/nro_1.png");
@@ -81,42 +79,24 @@
 .tile.mine {
   border-color: grey;
   background-image: url("assets/mine.png");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
 }
 .tile.mine_exploded {
   border-color: grey;
   background-image: url("assets/mine_exploded.png");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .tile.flag {
   border-color: grey;
   background-image: url("assets/flag.png");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
 }
 .tile.flag_incorrect {
   border-color: grey;
   background-image: url("assets/flag_incorrect.png");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
-.tile:hover:not(.disabled) {
+.hidden:hover:not(.disabled) {
   border-color: black;
 }
 
-.tileNumber {
-  font-size: larger;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 
