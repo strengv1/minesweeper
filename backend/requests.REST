@@ -1,0 +1,13 @@
+POST http://localhost:3001/api/leaderboard/
+Content-Type: application/json
+
+{
+    "username": "ville",
+    "time": 205
+}
+
+###
+
+GET http://localhost:3001/api/leaderboard/
+
+###
