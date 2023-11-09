@@ -1,9 +1,9 @@
-import './styles.css'
 import { useState, useEffect  } from 'react'
-import scoreService from './services/scores'
 import Grid from './components/grid.js'
 import Timer from './components/timer.js'
 import Header from './components/header.js'
+import './styles.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const getXYfromIndex = (index, width) => {
   const x = index%width
@@ -77,6 +77,7 @@ const generateGrid = (wid, hgt) => {
 }
 
 function App() {
+  const [difficulty, setDifficulty] = useState('BEGINNER')
   const [firstClick, setFirstClick] = useState(true)
   const [height, setHeight] = useState(9)
   const [width, setWidth] = useState(9)
@@ -87,14 +88,32 @@ function App() {
   const [timerOn, setTimerOn] = useState(0)
   const [minesLeftText, setMinesLeftText] = useState(mineCount)
 
-  const [topScores, setTopScores] = useState([{ username:'default-ukko', time: 123, id: 1 }])
-
   useEffect(() => {
-    scoreService.getAll().then(scores => {
-      // scores.sort((a, b) => b.time + a.time)
-      setTopScores( scores )
-    })
-  }, [])
+    const setBoard = (wdth, hght, mines) => {
+      setWidth(wdth)
+      setHeight(hght)
+      setMineCount(mines)
+    }
+    switch (difficulty) {
+      case 'BEGINNER':
+          setBoard(9, 9, 10)
+          break;
+      case 'INTERMEDIATE':
+          setBoard(16, 16, 40)
+          break;
+      case 'EXTREME':
+          setBoard(16, 30, 99)
+          break;
+      default:
+          setBoard(width, height, mineCount)
+          break;
+    }
+  
+    // eslint-disable-next-line
+  }, [difficulty])
+
+  // eslint-disable-next-line
+  useEffect(() => initializeGrid(), [])  
 
   useEffect(() => {
     let interval = null
@@ -108,8 +127,15 @@ function App() {
     }
 
     return () => clearInterval(interval) // Memory leak preventation?
-  }, [timerOn]);
+  }, [timerOn])
   
+
+  const handleDifficultyChange = (newDifficulty) => {
+    // Update the difficulty state when the user selects a new difficulty
+    setDifficulty(newDifficulty);
+  };
+
+
   // Game does not continue if:
   // 1. A tile has a mine, and it's unopened
   // 2. A tile does NOT have a mine and it's unopened
@@ -213,7 +239,7 @@ function App() {
 
   const initializeGrid = () => {
     setTimerOn(false)
-    setTime(0) 
+    setTime(0)
     setFirstClick(true)
     setGameOverText('')
     setMinesLeftText(mineCount)
@@ -224,21 +250,22 @@ function App() {
 
     const board = document.querySelector('.board')
     if (board) {
-      board.style.setProperty('--size', width)
+      board.style.setProperty('--boardWidth', width)
     }
   }
   
   return (
     <>
-      <Header 
-        width={width} height={height} mineCount={mineCount}
+      <Header
+        difficulty={difficulty} width={width} height={height} mineCount={mineCount}
         functions={[
+            handleDifficultyChange,
             setWidth,
             setHeight,
             setMineCount,
             initializeGrid
           ]}
-      />     
+      />
 
       <div className="body">
         <Timer time={time} minesLeft={minesLeftText} />
@@ -249,18 +276,10 @@ function App() {
         <Grid
             grid={grid}
             functions={
-              [ revealTile, 
-                flagTile, 
+              [ revealTile,
+                flagTile,
                 checkFlagsAndRevealAdjacentTiles ]}
           />
-        <ul>
-          {topScores.map(score => 
-          <li key={score.id}>
-            {score.username} {score.time}
-          </li>
-          )}
-        </ul>
-        
       </div>
     </>
   );

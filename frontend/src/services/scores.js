@@ -1,5 +1,4 @@
 import axios from 'axios'
-const baseUrl = '/api/leaderboard'
 
 const create = (newObject) => {
   const request = axios.post(`http://localhost:3001/api/leaderboard`, newObject)
@@ -11,6 +10,7 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
+// eslint-disable-next-line
 export default {
   getAll,
   create

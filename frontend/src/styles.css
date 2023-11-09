@@ -1,13 +1,10 @@
+html {
+  --tileWidth: 30px;
+}
+
 .body {
   position: relative;
 }
-
-.header {
-  display: grid;
-  justify-content: center;
-  margin-bottom: 50px;
-}
-
 .timerContainer {
   display: grid;
   justify-content: center;
@@ -18,26 +15,48 @@
 
 .gameOverText {
   font-size: 4.5em;
+  text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 20;
+  width: fit-content;
+  max-width: 530px;
+  z-index: 1;
   transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 3px 3px 3px black;
+  border-radius: 10px;
+  box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.6);
+  background-color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(5px);
+}
+@media (max-width: 600px) {
+  .gameOverText {
+    font-size: 3.5em;
+  }
+}
+@media (max-width: 480px) {
+  .gameOverText {
+    font-size: 2.5em;
+  }
 }
 
 .board {
   display: grid;
+  margin-inline: auto;
+  margin-bottom: 5em;
   justify-content: center;
   align-content: center;
-  grid-template-columns: repeat(var(--size), auto);
+  grid-template-columns: repeat(var(--boardWidth), auto);
+  width: calc(var(--boardWidth) * var(--tileWidth) + 2px);
+  border: 1px solid black;
 }
 
 .tile {
-  width: 30px;
-  height: 30px;
+  width: var(--tileWidth);
+  height: var(--tileWidth);
   border: 2px;
   border-style: solid;
-  border-color: grey;
   position: relative;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -45,31 +64,36 @@
 }
 
 .hidden {
+  border-color: grey;
   background-image: url("assets/hidden.png");
 }
 
-.tile.nro_1 {
+.tile.open {
+  border-color: grey;
+  background-color: white;
+}
+.tile.open.nro_1 {
   background-image: url("assets/nro_1.png");
 }
-.tile.nro_2 {
+.tile.open.nro_2 {
   background-image: url("assets/nro_2.png");
 }
-.tile.nro_3 {
+.tile.open.nro_3 {
   background-image: url("assets/nro_3.png");
 }
-.tile.nro_4 {
+.tile.open.nro_4 {
   background-image: url("assets/nro_4.png");
 }
-.tile.nro_5 {
+.tile.open.nro_5 {
   background-image: url("assets/nro_5.png");
 }
-.tile.nro_6 {
+.tile.open.nro_6 {
   background-image: url("assets/nro_6.png");
 }
-.tile.nro_7 {
+.tile.open.nro_7 {
   background-image: url("assets/nro_7.png");
 }
-.tile.nro_8 {
+.tile.open.nro_8 {
   background-image: url("assets/nro_8.png");
 }
 
@@ -95,5 +119,16 @@
   border-color: black;
 }
 
+.difficulty-button-container button {
+  background: none;
+  border: none;
+  color: blue;
+}
+.difficulty-button-container button:hover {
+  background: lightgray;
+}
+.difficulty-button-container .active {
+  background: lightgray;
+}
 
 
