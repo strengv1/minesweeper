@@ -1,0 +1,99 @@
+.body {
+  position: relative;
+}
+
+.header {
+  display: grid;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.timerContainer {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  gap: 100px;
+  grid-auto-flow: column;
+}
+
+.gameOverText {
+  font-size: 4.5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 20;
+  transform: translate(-50%, -50%);
+}
+
+.board {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(var(--size), auto);
+}
+
+.tile {
+  width: 30px;
+  height: 30px;
+  border: 2px;
+  border-style: solid;
+  border-color: grey;
+  position: relative;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.hidden {
+  background-image: url("assets/hidden.png");
+}
+
+.tile.nro_1 {
+  background-image: url("assets/nro_1.png");
+}
+.tile.nro_2 {
+  background-image: url("assets/nro_2.png");
+}
+.tile.nro_3 {
+  background-image: url("assets/nro_3.png");
+}
+.tile.nro_4 {
+  background-image: url("assets/nro_4.png");
+}
+.tile.nro_5 {
+  background-image: url("assets/nro_5.png");
+}
+.tile.nro_6 {
+  background-image: url("assets/nro_6.png");
+}
+.tile.nro_7 {
+  background-image: url("assets/nro_7.png");
+}
+.tile.nro_8 {
+  background-image: url("assets/nro_8.png");
+}
+
+.tile.mine {
+  border-color: grey;
+  background-image: url("assets/mine.png");
+}
+.tile.mine_exploded {
+  border-color: grey;
+  background-image: url("assets/mine_exploded.png");
+}
+
+.tile.flag {
+  border-color: grey;
+  background-image: url("assets/flag.png");
+}
+.tile.flag_incorrect {
+  border-color: grey;
+  background-image: url("assets/flag_incorrect.png");
+}
+
+.hidden:hover:not(.disabled) {
+  border-color: black;
+}
+
+
+
