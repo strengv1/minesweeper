@@ -32,4 +32,10 @@ scoreSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Score', scoreSchema)
+const Beginner = mongoose.model('Beginner', scoreSchema)
+const Intermediate = mongoose.model('Intermediate', scoreSchema)
+const Extreme = mongoose.model('Extreme', scoreSchema)
+
+module.exports = {
+  Beginner, Intermediate, Extreme
+}

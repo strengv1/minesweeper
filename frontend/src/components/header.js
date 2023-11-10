@@ -47,7 +47,7 @@ const Header = ({ difficulty, width, height, mineCount, functions }) => {
 
       <div className='row justify-content-center p-3 p-md-4'>
         <div className="col-10 col-md-8 col-lg-6 ">
-          { difficulty !== 'CUSTOM' ? <Leaderboard /> :
+          { difficulty !== 'CUSTOM' ? <Leaderboard difficulty={difficulty}/> :
           <fieldset>
             <div className="row">
               <label htmlFor="width">width</label>

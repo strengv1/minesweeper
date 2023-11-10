@@ -2,6 +2,8 @@ import { useState, useEffect  } from 'react'
 import Grid from './components/grid.js'
 import Timer from './components/timer.js'
 import Header from './components/header.js'
+import GameOverBox from './components/GameOverBox.js'
+import scoreService from './services/scores'
 import './styles.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -254,6 +256,62 @@ function App() {
     }
   }
   
+  const saveScore = ( event ) => {
+    event.preventDefault()
+    switch(difficulty){
+      case 'BEGINNER':
+        scoreService.createBeginner({
+          "username": event.target.username.value,
+          "time": time
+        }).then(returnedScore => {
+          console.log(returnedScore, ': Score saved succesfully!')
+        })
+        .catch(error => {
+          console.log(
+            error.response ?
+              error.response.data.error :
+              'Unidentified error occured, error:', error, true
+          )
+        })
+        break
+      case 'INTERMEDIATE':
+        scoreService.createIntermediate({
+          "username": event.target.username.value,
+          "time": time
+        }).then(returnedScore => {
+          console.log('Score saved succesfully!')
+        })
+        .catch(error => {
+          console.log(
+            error.response ?
+              error.response.data.error :
+              'Unidentified error occured, error:', error, true
+          )
+        })
+        break
+      case 'EXTREME':
+        scoreService.createExtreme({
+          "username": event.target.username.value,
+          "time": time
+        }).then(returnedScore => {
+          console.log(returnedScore, ': Score saved succesfully!')
+        })
+        .catch(error => {
+          console.log(
+            error.response ?
+              error.response.data.error :
+              'Unidentified error occured, error:', error, true
+          )
+        })
+        break
+      default:
+        break
+    }
+
+    setGameOverText('')
+    event.target.username.value = ''
+  }
+
   return (
     <>
       <Header
@@ -270,9 +328,12 @@ function App() {
       <div className="body">
         <Timer time={time} minesLeft={minesLeftText} />
 
-        <div className="gameOverText">
-          {gameOverText}
-        </div>
+        <GameOverBox
+          text={gameOverText}
+          functions={[
+            initializeGrid,
+            saveScore
+          ]} />
         <Grid
             grid={grid}
             functions={

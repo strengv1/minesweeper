@@ -1,15 +1,38 @@
 import { useState, useEffect } from 'react'
 import scoreService from './../services/scores'
 
-const Leaderboard = () => {
+const Leaderboard = ({ difficulty }) => {
   const [topScores, setTopScores] = useState([{ username:'default-ukko', time: 123, id: 1 }])
 
   useEffect(() => {
-    scoreService.getAll().then(scores => {
-      scores.sort((a, b) => b.time + a.time)
-      setTopScores( scores )
-    })
-  }, [])
+    switch( difficulty ){
+      case 'BEGINNER':
+        scoreService.getBeginner()
+          .then(scores => {
+            scores.sort((a, b) => b.time + a.time)
+            setTopScores( scores )
+          })
+        break;
+      case 'INTERMEDIATE':
+        scoreService.getIntermediate()
+          .then(scores => {
+            scores.sort((a, b) => b.time + a.time)
+            setTopScores( scores )
+          })
+        break;
+      case 'EXTREME':
+        scoreService.getExtreme()
+          .then(scores => {
+            scores.sort((a, b) => b.time + a.time)
+            setTopScores( scores )
+          })
+        break;
+      default:
+        setTopScores(null)
+        break;
+    }
+    
+  }, [ difficulty ])
 
   const isOverAMinute = (time) => (Math.floor(time/6000) < 1)
   return (
