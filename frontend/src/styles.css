@@ -110,17 +110,7 @@ html {
   border-color: black;
 }
 
-.difficulty-button-container button {
-  background: none;
-  border: none;
-  color: blue;
-  font-size: min(4vw, 1em);
+a.active {
+  background-color: lightgray;
 }
-.difficulty-button-container button:hover {
-  background: lightgray;
-}
-.difficulty-button-container .active {
-  background: lightgray;
-}
-
 

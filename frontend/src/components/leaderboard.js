@@ -1,43 +1,12 @@
-import { useState, useEffect } from 'react'
-import scoreService from './../services/scores'
+// import { useState, useEffect } from 'react'
 
-const Leaderboard = ({ difficulty }) => {
-  const [topScores, setTopScores] = useState([{ username:'default-ukko', time: 123, id: 1 }])
-
-  useEffect(() => {
-    switch( difficulty ){
-      case 'BEGINNER':
-        scoreService.getBeginner()
-          .then(scores => {
-            scores.sort((a, b) => b.time + a.time)
-            setTopScores( scores )
-          })
-        break;
-      case 'INTERMEDIATE':
-        scoreService.getIntermediate()
-          .then(scores => {
-            scores.sort((a, b) => b.time + a.time)
-            setTopScores( scores )
-          })
-        break;
-      case 'EXTREME':
-        scoreService.getExtreme()
-          .then(scores => {
-            scores.sort((a, b) => b.time + a.time)
-            setTopScores( scores )
-          })
-        break;
-      default:
-        setTopScores(null)
-        break;
-    }
-    
-  }, [ difficulty ])
-
+const Leaderboard = ({ scores }) => {
+  
   const isOverAMinute = (time) => (Math.floor(time/6000) < 1)
   return (
-    <div className="leaderboard">
-      <table className="table table-sm table-striped table-bordered table-hover">
+    <div className="container leaderboard">
+      <div className='row justify-content-center p-3 p-md-4'>
+        <table className="table table-sm table-striped table-bordered table-hover">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -46,7 +15,7 @@ const Leaderboard = ({ difficulty }) => {
             </tr>
           </thead>
           <tbody>
-            {topScores.length ? topScores.map((score, index) =>
+            {scores ? scores.map((score, index) =>
               <tr key={score.id}>
                 <th scope="row">{index+1}</th>
                 <td>{score.username}</td>
@@ -59,8 +28,8 @@ const Leaderboard = ({ difficulty }) => {
               </tr>
             ) : null}
           </tbody>
-          
-      </table>
+        </table>
+      </div>
     </div>
   )
 }
