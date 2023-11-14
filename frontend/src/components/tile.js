@@ -1,10 +1,8 @@
-
 const Tile = ({ tile, functions }) => {
   const [revealTile, flagTile, checkFlagsAndRevealAdjacentTiles] = functions
   const handleClick = (e) => {
     e.preventDefault()
     if (tile.disabled) return
-
 
     if (e.type === 'click') {
       switch (tile.status){

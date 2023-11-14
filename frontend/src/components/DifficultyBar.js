@@ -20,10 +20,10 @@ const DifficultyBar = () => {
           className={bsDifficultyCols}
           to='/extreme'
         >Extreme</NavLink>
-        {/* <NavLink
+        <NavLink
           className={bsDifficultyCols}
           to='/custom'
-        >Custom</NavLink> */}
+        >Custom</NavLink>
 
       </div>
     </nav>

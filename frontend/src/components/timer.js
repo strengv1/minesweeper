@@ -1,6 +1,5 @@
 const Timer = ({ time, minesLeft }) => {
-  
-  
+
   return (
     <div className="timerContainer">
 

@@ -7,7 +7,7 @@ import NewGameButton from "../components/NewGameButton";
 import Timer from "../components/timer";
 import GameOverBox from "../components/GameOverBox";
 import Grid from "../components/grid";
-
+import CustomFieldSet from "../components/CustomFieldSet"
 
 const getXYfromIndex = (index, width) => {
   const x = index%width
@@ -83,6 +83,7 @@ export default function Game() {
   const { difficulty } = useParams()
   const [topScores, gridDimensions] = useLoaderData()
 
+  const [customGridDimensions, setCustomGridDimensions] = useState( { width:4, height:4, mineCount:6 } )
   const [firstClick, setFirstClick] = useState(true)
   const [grid, setGrid] = useState([[]])
   const [gameOverText, setGameOverText] = useState('')
@@ -213,66 +214,62 @@ export default function Game() {
     setTime(0)
     setFirstClick(true)
     setGameOverText('')
-    setMinesLeftText(gridDimensions.mineCount)
-    const newGrid = generateGrid(gridDimensions.width, gridDimensions.height)
-    addMinesToGrid(newGrid, gridDimensions.mineCount)
-    addAdjacentMineNumbers(newGrid, gridDimensions.width)
+
+    let newGrid;
+    if (difficulty==='custom') {
+      setMinesLeftText(customGridDimensions.mineCount)
+      newGrid = generateGrid(customGridDimensions.width, customGridDimensions.height)
+      addMinesToGrid(newGrid, customGridDimensions.mineCount)
+      addAdjacentMineNumbers(newGrid, customGridDimensions.width)
+    } else {
+      setMinesLeftText(gridDimensions.mineCount)
+      newGrid = generateGrid(gridDimensions.width, gridDimensions.height)
+      addMinesToGrid(newGrid, gridDimensions.mineCount)
+      addAdjacentMineNumbers(newGrid, gridDimensions.width)
+    }
+    
     setGrid(newGrid)
 
     const board = document.querySelector('.board')
     if (board) {
-      board.style.setProperty('--boardWidth', gridDimensions.width)
+      difficulty==='custom' ? board.style.setProperty('--boardWidth', customGridDimensions.width) : board.style.setProperty('--boardWidth', gridDimensions.width)
     }
   }
   
   const saveScore = ( event ) => {
     event.preventDefault()
 
+    const myThen = returnedScore => {
+      alert('Score saved succesfully!')
+    }
+    const myCatch = error => {
+      console.log(error.response ?
+        error.response.data.error :
+        'Unidentified error occured, error:', error, true
+      )
+    }
+    const newScore = {
+      "username": event.target.username.value,
+      "time": time
+    }
     switch(difficulty){
       case 'beginner':
-        scoreService.createBeginner({
-          "username": event.target.username.value,
-          "time": time
-        }).then(returnedScore => {
-          console.log(returnedScore, ': Score saved succesfully!')
-        })
-        .catch(error => {
-          console.log(
-            error.response ?
-              error.response.data.error :
-              'Unidentified error occured, error:', error, true
-          )
-        })
+        scoreService
+          .createBeginner(newScore)
+          .then(returnedScore => myThen(returnedScore))
+          .catch(error => myCatch(error))
         break
       case 'intermediate':
-        scoreService.createIntermediate({
-          "username": event.target.username.value,
-          "time": time
-        }).then(returnedScore => {
-          console.log('Score saved succesfully!')
-        })
-        .catch(error => {
-          console.log(
-            error.response ?
-              error.response.data.error :
-              'Unidentified error occured, error:', error, true
-          )
-        })
+        scoreService
+          .createIntermediate(newScore)
+          .then(returnedScore => myThen(returnedScore))
+          .catch(error => myCatch(error))
         break
       case 'extreme':
-        scoreService.createExtreme({
-          "username": event.target.username.value,
-          "time": time
-        }).then(returnedScore => {
-          console.log(returnedScore, ': Score saved succesfully!')
-        })
-        .catch(error => {
-          console.log(
-            error.response ?
-              error.response.data.error :
-              'Unidentified error occured, error:', error, true
-          )
-        })
+        scoreService
+          .createExtreme(newScore)
+          .then(returnedScore => myThen(returnedScore))
+          .catch(error => myCatch(error))
         break
       default:
         break
@@ -284,16 +281,27 @@ export default function Game() {
 
   return (
     <>
-      <Leaderboard scores={topScores}/>
+      {
+        difficulty === 'custom' ?
+          <CustomFieldSet
+            customGridDimensions={customGridDimensions}
+            setCustomGridDimensions={setCustomGridDimensions}
+          /> :
+          <Leaderboard scores={topScores}/>
+      }
+      
       <NewGameButton initializeGrid={initializeGrid}/>
       <Timer time={time} minesLeft={minesLeftText} />
 
       <GameOverBox
         text={gameOverText}
-        functions={[
-          initializeGrid,
-          saveScore
-        ]} />
+        time={time}
+        isCustom={difficulty==='custom'}
+        functions={
+          [ initializeGrid,
+          saveScore,
+          setGameOverText ]}
+      />
       <Grid
         grid={grid}
         functions={
@@ -323,11 +331,7 @@ export const scoreLoader = async ({ params }) => {
           scores.sort(fastestFirst)
           return scores
         })
-      gridDimensions = {
-        width: 9,
-        height: 9,
-        mineCount: 10
-      }
+      gridDimensions = { width: 9, height: 9, mineCount: 10 }
       return [score, gridDimensions]
 
     case 'intermediate':
@@ -336,11 +340,7 @@ export const scoreLoader = async ({ params }) => {
           scores.sort(fastestFirst)
           return scores
         })
-      gridDimensions = {
-        width: 16,
-        height: 16,
-        mineCount: 40
-      }
+      gridDimensions = { width: 16, height: 16, mineCount: 40 }
       return [score, gridDimensions]
   
     case 'extreme':
@@ -349,13 +349,13 @@ export const scoreLoader = async ({ params }) => {
           scores.sort(fastestFirst)
           return scores
         })
-      gridDimensions = {
-        width: 30,
-        height: 16,
-        mineCount: 99
-      }
+      gridDimensions = { width: 30, height: 16, mineCount: 99 }
       return [score, gridDimensions]
-  
+    case 'custom':
+      score = null
+      gridDimensions = { width: 4, height: 4, mineCount: 5 }
+      return [score, gridDimensions]
+    
     default:
       break
     
