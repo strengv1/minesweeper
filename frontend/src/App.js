@@ -1,6 +1,3 @@
-// import Beginner, { beginnerLoader } from './pages/Beginner.js'
-// import Intermediate, { intermediateLoader } from './pages/Intermediate.js'
-
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -24,7 +21,7 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <>
+    <>      
       <RouterProvider router={router} />
     </>
   );

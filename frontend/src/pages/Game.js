@@ -331,6 +331,8 @@ export const scoreLoader = async ({ params }) => {
           scores.sort(fastestFirst)
           return scores
         })
+        .catch(error => console.log("error: ", error))
+
       gridDimensions = { width: 9, height: 9, mineCount: 10 }
       return [score, gridDimensions]
 
@@ -340,6 +342,8 @@ export const scoreLoader = async ({ params }) => {
           scores.sort(fastestFirst)
           return scores
         })
+        .catch(error => console.log("error: ", error))
+
       gridDimensions = { width: 16, height: 16, mineCount: 40 }
       return [score, gridDimensions]
   
@@ -349,6 +353,8 @@ export const scoreLoader = async ({ params }) => {
           scores.sort(fastestFirst)
           return scores
         })
+        .catch(error => console.log("error: ", error))
+
       gridDimensions = { width: 30, height: 16, mineCount: 99 }
       return [score, gridDimensions]
     case 'custom':
@@ -357,7 +363,7 @@ export const scoreLoader = async ({ params }) => {
       return [score, gridDimensions]
     
     default:
-      break
+      return [score, gridDimensions]
     
   }
 }

@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
+
 const { Beginner, Intermediate, Extreme } = require('./models/score')
 
 app.use(cors())

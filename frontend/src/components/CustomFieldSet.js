@@ -17,6 +17,7 @@ const CustomFieldSet = ({ customGridDimensions, setCustomGridDimensions }) => {
               onChange={handleChange}
               type="text"
               name="width"
+              id="width"
             />
           </div>
           <div className="row">
@@ -25,6 +26,7 @@ const CustomFieldSet = ({ customGridDimensions, setCustomGridDimensions }) => {
               onChange={handleChange}
               type="text"
               name="height"
+              id="height"
             />
           </div>
           <div className="row">
@@ -33,6 +35,7 @@ const CustomFieldSet = ({ customGridDimensions, setCustomGridDimensions }) => {
               onChange={handleChange}
               type="text"
               name="mineCount"
+              id="mineCount"
             />
           </div>
         </div>
