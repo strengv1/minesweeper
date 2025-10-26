@@ -1,31 +1,30 @@
 import axios from 'axios'
 
-// baseurl if running locally: https://localhost:3001/api/
 const createBeginner = (newObject) => {
-  const request = axios.post(`https://minesweeper-db.onrender.com/api/beginner`, newObject)
+  const request = axios.post(`http://localhost:3001/api/beginner`, newObject)
   return request.then(response => response.data)
 }
 
 const getBeginner = () => {
-  const request = axios.get(`https://minesweeper-db.onrender.com/api/beginner`)
+  const request = axios.get(`http://localhost:3001/api/beginner`)
   return request.then(response => response.data)
 }
 const createIntermediate = (newObject) => {
-  const request = axios.post(`https://minesweeper-db.onrender.com/api/intermediate`, newObject)
+  const request = axios.post(`http://localhost:3001/api/intermediate`, newObject)
   return request.then(response => response.data)
 }
 
 const getIntermediate = () => {
-  const request = axios.get(`https://minesweeper-db.onrender.com/api/intermediate`)
+  const request = axios.get(`http://localhost:3001/api/intermediate`)
   return request.then(response => response.data)
 }
 const createExtreme = (newObject) => {
-  const request = axios.post(`https://minesweeper-db.onrender.com/api/extreme`, newObject)
+  const request = axios.post(`http://localhost:3001/api/extreme`, newObject)
   return request.then(response => response.data)
 }
 
 const getExtreme = () => {
-  const request = axios.get(`https://minesweeper-db.onrender.com/api/extreme`)
+  const request = axios.get(`http://localhost:3001/api/extreme`)
   return request.then(response => response.data)
 }
 
