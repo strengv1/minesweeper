@@ -24,7 +24,7 @@ const Leaderboard = ({ scores }) => {
             <tbody>
               {top10Scores.length > 0 ? (
                 top10Scores.map((score, index) => (
-                  <tr key={score.id}>
+                  <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{score.username}</td>
                     <td>{prettyTime(score.time)}</td>

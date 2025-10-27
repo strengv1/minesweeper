@@ -1,10 +1,16 @@
-## Minesweeper made with React! Backend/scoreboard with Express+MongoDB
+## Minesweeper made with React! Backend/Scoreboard with Express+MongoDB
 
 Run server+backend:
 
 ### `docker-compose up --build -d`
 
-
-Run frontend in /frontend with:
+Run frontend with:
 
 ### `npm start`
+
+
+Deploy with
+
+$env:MONGODB_URI = "mongodb+srv://username:password@cluster.mongodb.net/minesweeper"
+cd infra
+cdk deploy
