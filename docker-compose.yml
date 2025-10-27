@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:6
+    container_name: my-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  node-server:
+    build: ./backend
+    container_name: node-server
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/minesweeper-scores
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:

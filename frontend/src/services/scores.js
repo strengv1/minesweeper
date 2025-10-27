@@ -1,35 +1,37 @@
 import axios from 'axios'
+import config from '../config'
 
-const createBeginner = (newObject) => {
-  const request = axios.post(`http://localhost:3001/api/beginner`, newObject)
-  return request.then(response => response.data)
-}
-
-const getBeginner = () => {
-  const request = axios.get(`http://localhost:3001/api/beginner`)
-  return request.then(response => response.data)
-}
-const createIntermediate = (newObject) => {
-  const request = axios.post(`http://localhost:3001/api/intermediate`, newObject)
+const createBeginner = async (newObject) => {
+  const request = axios.post(`${config.API_URL}/api/beginner`, newObject)
   return request.then(response => response.data)
 }
 
-const getIntermediate = () => {
-  const request = axios.get(`http://localhost:3001/api/intermediate`)
-  return request.then(response => response.data)
-}
-const createExtreme = (newObject) => {
-  const request = axios.post(`http://localhost:3001/api/extreme`, newObject)
+const getBeginner = async () => {
+  const request = axios.get(`${config.API_URL}/api/beginner`)
   return request.then(response => response.data)
 }
 
-const getExtreme = () => {
-  const request = axios.get(`http://localhost:3001/api/extreme`)
+const createIntermediate = async (newObject) => {
+  const request = axios.post(`${config.API_URL}/api/intermediate`, newObject)
   return request.then(response => response.data)
 }
 
-// eslint-disable-next-line
-export default {
+const getIntermediate = async () => {
+  const request = axios.get(`${config.API_URL}/api/intermediate`)
+  return request.then(response => response.data)
+}
+
+const createExtreme = async (newObject) => {
+  const request = axios.post(`${config.API_URL}/api/extreme`, newObject)
+  return request.then(response => response.data)
+}
+
+const getExtreme = async () => {
+  const request = axios.get(`${config.API_URL}/api/extreme`)
+  return request.then(response => response.data)
+}
+
+const scoresService = {
   createBeginner,
   getBeginner,
   createIntermediate,
@@ -37,3 +39,5 @@ export default {
   createExtreme,
   getExtreme
 }
+
+export default scoresService
