@@ -52,12 +52,20 @@ A full-stack Minesweeper game with React frontend and Node.js backend, deployed 
 
 ## Deployment
 
-### 1. Install Dependencies
-Run "npm i" in /frontend, /backend and /infra folders
-Run "npm run build" in /frontend
+### 1. Install Dependencies and Build React App
+Run in /frontend, /backend and /infra folders
+```bash
+npm i
+```
+
+Run in /frontend
+```bash
+npm run build
+```
 
 ### 2. Configure Environment
-Export/set MONGODB_URI as environment variable:
+Export/set MONGODB_URI as environment variable
+
 Linux:
 ```bash
 export MONGODB_URI="mongodb+srv://username:password@cluster.mongodb.net/minesweeper?retryWrites=true&w=majority"
@@ -73,7 +81,7 @@ cd infra
 cdk deploy
 ```
 
-### 4. Update Frontend API Endpoint (Find it in the output)
+### 4. Update Frontend API Endpoint (It is in the output, MinesweeperStack.BackendURL = "")
 
 ```bash
 # Update frontend config with BackendURL
@@ -93,7 +101,7 @@ cdk destroy
 
 ## Design Decisions & Trade-offs
 
-**1. MongoDB not in IaC:** The server is running in a free MongoDB Atlas Cluster instead of AWS, and it is not deployed/destroyed with the rest of the stack. This is due to me having already spent the AWS free period, and the alternatives cost more than pennies, which I don't want to pay for a portfolio app. EC2+Docker would've been easier solution, as I already use Docker for local development.
+**1. MongoDB not in IaC:** The server is running in a free MongoDB Atlas Cluster instead of AWS (Functionally AWS, Atlas uses it..), and it is not deployed/destroyed with the rest of the stack. This is due to me having already spent the AWS free period, and the alternatives cost more than pennies, which I don't want to pay for a portfolio app. EC2+Docker would've been easier solution, as I already use Docker for local development.
 
 Alternatives and their estimated cost:
 - EC2 t4g.nano: | 1.83€/Month
@@ -110,19 +118,9 @@ Lambda functions and S3 are basically free at the expected traffic, and they dis
 
 ## Local development
 
-### Server + Backend, run in root
+### Frontend, Server and Backend, run in root
 ```bash
 docker-compose up --build -d
 ```
 
-### Frontend, run in /frontend
-```bash
-npm start
-```
-
-
-Deploy with
-
-$env:MONGODB_URI = "mongodb+srv://username:password@cluster.mongodb.net/minesweeper"
-cd infra
-cdk deploy
+### Frontend available in [localhost:3000](http://localhost:3000)!

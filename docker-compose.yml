@@ -17,6 +17,16 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/minesweeper-scores
     depends_on:
       - mongo
+  
+  frontend:
+    build: ./frontend
+    container_name: minesweeper-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - node-server
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
 
 volumes:
   mongo-data:
